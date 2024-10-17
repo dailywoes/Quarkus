@@ -1,6 +1,8 @@
 package org.agoncal.quarkus.starting;
 
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,13 +10,26 @@ import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 class BookResourceTest {
+
     @Test
-    void testHelloEndpoint() {
+    public void shouldGetAllBooks() {
         given()
-          .when().get("/api/books")
-          .then()
-             .statusCode(200)
-             .body(is("Hello World"));
+                .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
+                .when()
+                .get("/api/books")
+                .then()
+                .statusCode(200)
+                .body("size()", is(4));
     }
 
+    @Test
+    public void shouldCountAllBooks() {
+        given()
+                .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
+                .when()
+                .get("/api/books/count")
+                .then()
+                .statusCode(200)
+                .body(is("4"));
+    }
 }

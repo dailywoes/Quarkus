@@ -9,7 +9,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 @Path("/api/books")
 @Produces(MediaType.APPLICATION_JSON)
